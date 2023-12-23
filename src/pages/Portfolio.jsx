@@ -4,7 +4,7 @@ import { FaGithub } from "react-icons/fa";
 
 const Portfolio = () => {
   return (
-    <div className='screenHeight px-10'>
+    <div className='screenHeight px-10  pb-[200px]'>
       <h1 className="text-[40px] mb-4 font-bold mt-10 text-white">Portfolio and Experience</h1>
       <div className="mt-10">
         <p className="text-xl font-semibold md:max-w-[75%] text-white">
@@ -22,7 +22,7 @@ const Portfolio = () => {
           <FaGithub />
         </Link>
       </span>
-      <div className="mt-4 flex  flex-wrap items-center gap-4">
+      <div className="mt-4 flex  flex-wrap items-center justify-center md:justify-start gap-4">
           <div className="w-[300px] py-5 border-[2px] font-bold text-lg tracking-wide border-white rounded-sm bg-transparent hover:bg-[#ffffff50] transition-all duration-300 text-white flex flex-col items-center justify-center gap-3">
             <Link target='_blank' to={"https://react-admin-dashboard-one-olive.vercel.app/"} className='border-b border-white'>
               Admin Dashboard

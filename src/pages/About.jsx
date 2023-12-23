@@ -5,7 +5,7 @@ import { Canvas } from "@react-three/fiber";
 const About = () => {
   return (
     <div
-      className="screenHeight"
+      className="screenHeight pb-[200px] md:pb-0"
       style={{
         background: "linear-gradient(to right, #355c7d, #6c5b7b, #c06c84)",
       }}
