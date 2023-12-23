@@ -4,9 +4,9 @@ import Experience from "../components/Experience";
 
 const Home = () => {
   return (
-    <div className="home">
+    <div className="screenHeight">
         <Canvas
-         style={{ background: 'linear-gradient(to right, #355c7d, #6c5b7b, #c06c84)' }}
+        //  style={{ background: 'linear-gradient(to right, #355c7d, #6c5b7b, #c06c84)' }}
           className="r3f"
           camera={{
               fov: 45,
