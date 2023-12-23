@@ -1,4 +1,5 @@
 import { Text ,Html, ContactShadows, PresentationControls, Float, Environment, useGLTF } from "@react-three/drei";
+import InnerScreen from "./InnerScreen";
 
 export default function Experience() {
   const computer = useGLTF(
@@ -9,7 +10,7 @@ export default function Experience() {
     <>
       <Environment preset="city" />
 
-      <color args={["#4D4F94"]} attach="background" />
+      {/* <color args={["#4D4F94"]} attach="background" /> */}
       
       <PresentationControls 
         global
@@ -39,7 +40,8 @@ export default function Experience() {
               position={[0, 1.56, - 1.4]}
               rotation-x={ - 0.256}
             >
-              <iframe src="https://code.edu.az/" />
+              {/* <iframe src="https://code.edu.az/" /> */}
+              <InnerScreen />
             </Html>
           </primitive>
           <Text

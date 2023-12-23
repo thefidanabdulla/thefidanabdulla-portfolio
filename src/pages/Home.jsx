@@ -6,15 +6,16 @@ const Home = () => {
   return (
     <div className="home">
         <Canvas
-        className="r3f"
-        camera={{
-            fov: 45,
-            near: 0.1,
-            far: 2000,
-            position: [-3, 1.5, 4],
-        }}
+         style={{ background: 'linear-gradient(to right, #355c7d, #6c5b7b, #c06c84)' }}
+          className="r3f"
+          camera={{
+              fov: 45,
+              near: 0.1,
+              far: 2000,
+              position: [-3, 1.5, 4],
+          }}
         >
-        <Experience />
+          <Experience />
         </Canvas>
     </div>
   );
