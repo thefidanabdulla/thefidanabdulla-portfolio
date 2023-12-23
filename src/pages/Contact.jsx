@@ -10,7 +10,7 @@ const Contact = () => {
       <h1 className="text-[48px] mb-4 font-bold mt-10 text-white">Contact</h1>
       <div className='flex flex-col gap-3'>
         <span className='text-[24px] font-bold  text-white flex items-center gap-2'><MdEmail />  Email:</span>
-        <a className='text-[24px] border-2 border-white py-4 w-[400px] flex justify-center hover:bg-[#ffffff50] transition-all duration-300 font-bold cursor-pointer text-white' href="mailto:thefidanabdulla@gmail.com">thefidanabdulla@gmail.com</a>
+        <a className='text-[24px] border-2 border-white py-4 w-[350px] md:w-[400px] flex justify-center hover:bg-[#ffffff50] transition-all duration-300 font-bold cursor-pointer text-white' href="mailto:thefidanabdulla@gmail.com">thefidanabdulla@gmail.com</a>
       </div>
       <div className='flex flex-col gap-3 mt-10'>
         <span className='text-[24px] font-bold  text-white '>Sosials and Others:</span>
