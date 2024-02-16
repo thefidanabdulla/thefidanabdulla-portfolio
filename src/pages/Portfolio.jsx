@@ -96,22 +96,6 @@ const Portfolio = () => {
           <div className="w-[300px] py-5 border-[2px] font-bold text-lg tracking-wide border-white rounded-sm bg-transparent hover:bg-[#ffffff50] transition-all duration-300 text-white flex flex-col items-center justify-center gap-3">
             <Link
               target="_blank"
-              to={"https://threejs-haunted-house-sigma.vercel.app/"}
-              className="border-b border-white"
-            >
-              Haunted House
-            </Link>
-            <Link
-              target="_blank"
-              to={"https://github.com/thefidanabdulla/threejs_haunted-house"}
-              className="text-xl text-center"
-            >
-              <FaGithub />
-            </Link>
-          </div>
-          <div className="w-[300px] py-5 border-[2px] font-bold text-lg tracking-wide border-white rounded-sm bg-transparent hover:bg-[#ffffff50] transition-all duration-300 text-white flex flex-col items-center justify-center gap-3">
-            <Link
-              target="_blank"
               to={"https://threejs-3d-text-one-lilac.vercel.app/"}
               className="border-b border-white"
             >
