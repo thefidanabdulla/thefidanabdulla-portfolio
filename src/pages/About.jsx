@@ -61,6 +61,9 @@ const About = () => {
                 Javascript
               </div>
               <div className="px-5 py-2 border-[2px] font-bold text-lg tracking-wide border-white rounded-sm bg-transparent hover:bg-[#ffffff50] transition-all duration-75 ">
+                Typescript
+              </div>
+              <div className="px-5 py-2 border-[2px] font-bold text-lg tracking-wide border-white rounded-sm bg-transparent hover:bg-[#ffffff50] transition-all duration-75 ">
                 Tailwind
               </div>
               <div className="px-5 py-2 border-[2px] font-bold text-lg tracking-wide border-white rounded-sm bg-transparent hover:bg-[#ffffff50] transition-all duration-75 ">
