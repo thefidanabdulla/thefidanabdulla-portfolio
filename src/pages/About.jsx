@@ -76,13 +76,10 @@ const About = () => {
                 THREE JS
               </div>
               <div className="px-5 py-2 border-[2px] font-bold text-lg tracking-wide border-white rounded-sm bg-transparent hover:bg-[#ffffff50] transition-all duration-75 ">
-                C#
+                NODE JS
               </div>
               <div className="px-5 py-2 border-[2px] font-bold text-lg tracking-wide border-white rounded-sm bg-transparent hover:bg-[#ffffff50] transition-all duration-75 ">
-                .Net
-              </div>
-              <div className="px-5 py-2 border-[2px] font-bold text-lg tracking-wide border-white rounded-sm bg-transparent hover:bg-[#ffffff50] transition-all duration-75 ">
-                Unity
+                EXPRESS JS
               </div>
             </div>
           </div>

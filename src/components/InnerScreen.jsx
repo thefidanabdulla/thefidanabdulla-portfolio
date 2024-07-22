@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const InnerScreen = () => {
   return (
     <div
-      className="w-[1024px] h-[670px] overflow-y-auto p-10 text-white"
+      className="w-[1024px] h-[670px] overflow-y-auto p-10 text-white rounded-xl"
       style={{
         background:
           "linear-gradient(110.6deg, rgb(184, 142, 252) 2.2%, rgb(104, 119, 244) 100.2%)",
@@ -43,14 +43,12 @@ const InnerScreen = () => {
             THREE JS
           </div>
           <div className="px-5 py-2 border-[2px] font-bold text-lg tracking-wide border-white rounded-sm bg-transparent hover:bg-[#ffffff50] transition-all duration-75 ">
-            C#
+            NODE JS
           </div>
           <div className="px-5 py-2 border-[2px] font-bold text-lg tracking-wide border-white rounded-sm bg-transparent hover:bg-[#ffffff50] transition-all duration-75 ">
-            .Net
+            EXPRESS JS
           </div>
-          <div className="px-5 py-2 border-[2px] font-bold text-lg tracking-wide border-white rounded-sm bg-transparent hover:bg-[#ffffff50] transition-all duration-75 ">
-            Unity
-          </div>
+
         </div>
       </div>
       <div className="mt-10">
