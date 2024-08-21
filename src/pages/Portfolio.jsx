@@ -68,6 +68,23 @@ const Portfolio = () => {
                 className="w-[300px] py-5 border-[2px] font-bold text-lg tracking-wide border-white rounded-sm bg-transparent hover:bg-[#ffffff50] transition-all duration-300 text-white flex flex-col items-center justify-center gap-3">
               <Link
                   target="_blank"
+                  to={"https://three-js-360-viewer.vercel.app/"}
+                  className="border-b border-white"
+              >
+                360 Viewer
+              </Link>
+              <Link
+                  target="_blank"
+                  to={"https://github.com/thefidanabdulla/three-js-360-viewer"}
+                  className="text-xl text-center"
+              >
+                <FaGithub/>
+              </Link>
+            </div>
+            <div
+                className="w-[300px] py-5 border-[2px] font-bold text-lg tracking-wide border-white rounded-sm bg-transparent hover:bg-[#ffffff50] transition-all duration-300 text-white flex flex-col items-center justify-center gap-3">
+              <Link
+                  target="_blank"
                   to={"https://threejs-materials-nine.vercel.app/"}
                   className="border-b border-white"
               >
