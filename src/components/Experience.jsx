@@ -3,7 +3,7 @@ import InnerScreen from "./InnerScreen";
 
 export default function Experience() {
   const computer = useGLTF(
-    "https://vazxmixjsiawhamofees.supabase.co/storage/v1/object/public/models/macbook/model.gltf"
+    "https://threejs-journey.com/resources/models/macbook_model.gltf"
   );
 
   return (
