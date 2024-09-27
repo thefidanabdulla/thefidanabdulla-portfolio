@@ -239,40 +239,8 @@ const Portfolio = () => {
                 <FaGithub/>
               </Link>
             </div>
-            <div
-                className="w-[300px] py-5 border-[2px] font-bold text-lg tracking-wide border-white rounded-sm bg-transparent hover:bg-[#ffffff50] transition-all duration-300 text-white flex flex-col items-center justify-center gap-3">
-              <Link
-                  target="_blank"
-                  to={"https://spotify-clone-nu-mocha.vercel.app/"}
-                  className="border-b border-white"
-              >
-                Spotify Clone
-              </Link>
-              <Link
-                  target="_blank"
-                  to={"https://github.com/thefidanabdulla/Spotify-Clone"}
-                  className="text-xl text-center"
-              >
-                <FaGithub/>
-              </Link>
-            </div>
-            <div
-                className="w-[300px] py-5 border-[2px] font-bold text-lg tracking-wide border-white rounded-sm bg-transparent hover:bg-[#ffffff50] transition-all duration-300 text-white flex flex-col items-center justify-center gap-3">
-              <Link
-                  target="_blank"
-                  to={"https://music-player-teal-six.vercel.app/"}
-                  className="border-b border-white"
-              >
-                Music Player
-              </Link>
-              <Link
-                  target="_blank"
-                  to={"https://github.com/thefidanabdulla/Music-Player"}
-                  className="text-xl text-center"
-              >
-                <FaGithub/>
-              </Link>
-            </div>
+            
+            
           </div>
         </div>
       </div>
