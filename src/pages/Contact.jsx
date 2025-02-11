@@ -18,7 +18,7 @@ const Contact = () => {
         <div className='flex md:w-[75%] flex-wrap gap-4'>
           <a className='text-base md:text-[24px] border-2 border-white py-4 w-[200px] justify-center hover:bg-[#ffffff50] transition-all duration-300 font-bold cursor-pointer flex items-center gap-2  text-white' target='_blank' href="https://github.com/thefidanabdulla"><FaGithub />Github</a>
           <a className='text-base md:text-[24px] border-2 border-white py-4 w-[200px] justify-center hover:bg-[#ffffff50] transition-all duration-300 font-bold cursor-pointer flex items-center gap-2  text-white' target='_blank' href="https://www.linkedin.com/in/thefidanabdulla/"><FaLinkedin />Linkedin</a>
-          <a className='text-base md:text-[24px] border-2 border-white py-4 w-[200px] justify-center hover:bg-[#ffffff50] transition-all duration-300 font-bold cursor-pointer flex items-center gap-2  text-white' target='_blank' href="https://www.facebook.com/fidan.abdulla.1/"><FaFacebookSquare />Facebook</a>
+          <a className='text-base md:text-[24px] border-2 border-white py-4 w-[200px] justify-center hover:bg-[#ffffff50] transition-all duration-300 font-bold cursor-pointer flex items-center gap-2  text-white' target='_blank' href="https://www.facebook.com/thefidanabdulla/"><FaFacebookSquare />Facebook</a>
           <a className='text-base md:text-[24px] border-2 border-white py-4 w-[200px] justify-center hover:bg-[#ffffff50] transition-all duration-300 font-bold cursor-pointer flex items-center gap-2  text-white' target='_blank' href="https://t.me/thefidanabdulla/"><FaTelegram />Telegram</a>
         </div>
       </div>
