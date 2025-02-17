@@ -11,14 +11,14 @@ const About = () => {
       }}
     >
       <div className="flex">
-        <div 
-        className="md:block hidden"
-         style={{
-          background: "transparent",
-          width: "45%",
-          height: "100vh",
-          flexShrink: "0",
-        }}
+        <div
+          className="md:block hidden"
+          style={{
+            background: "transparent",
+            width: "45%",
+            height: "100vh",
+            flexShrink: "0",
+          }}
         >
           <Canvas
             style={{
@@ -38,7 +38,7 @@ const About = () => {
             <AboutModel />
           </Canvas>
         </div>
-        <div className="screenHeight flex justify-center flex-col text-white p-4">
+        <div className="screenHeight flex justify-center flex-col text-white p-4 pt-28 md:pt-4">
           <div>
             <h1 className="text-[40px] mb-4 font-bold">Hi, Who I Am?</h1>
             <p className="text-2xl font-semibold ">
