@@ -1,6 +1,4 @@
 import React from "react";
-import AboutModel from "../components/AboutModel";
-import { Canvas } from "@react-three/fiber";
 
 const About = () => {
   return (
@@ -11,33 +9,6 @@ const About = () => {
       }}
     >
       <div className="flex">
-        <div
-          className="md:block hidden"
-          style={{
-            background: "transparent",
-            width: "45%",
-            height: "100vh",
-            flexShrink: "0",
-          }}
-        >
-          <Canvas
-            style={{
-              background: "transparent",
-              width: "100%",
-              height: "100vh",
-              flexShrink: "0",
-            }}
-            className="r3f "
-            camera={{
-              fov: 45,
-              near: 0.1,
-              far: 2000,
-              position: [-3, 1.5, 4],
-            }}
-          >
-            <AboutModel />
-          </Canvas>
-        </div>
         <div className="screenHeight flex justify-center flex-col text-white p-4 pt-28 md:pt-4">
           <div>
             <h1 className="text-[40px] mb-4 font-bold">Hi, Who I Am?</h1>
