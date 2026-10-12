@@ -38,7 +38,7 @@ export default function Marquee({ items, speed = 2.2, reverse = false, className
             {items.map((item) => (
               <span key={item} className={`flex items-center ${itemClassName}`}>
                 {item}
-                <span className="mx-[0.5em] inline-block h-[0.14em] w-[0.14em] rounded-full bg-violet" />
+                <span className="mx-[0.5em] inline-block h-[0.14em] w-[0.14em] rounded-full bg-straw" />
               </span>
             ))}
           </div>

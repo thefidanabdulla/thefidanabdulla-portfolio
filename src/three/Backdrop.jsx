@@ -33,7 +33,7 @@ void main() {
   vec2 a = vec2(0.32 + 0.3 * sin(uTime * 0.11), 0.1 + 0.22 * cos(uTime * 0.13));
   vec2 b = vec2(-0.4 + 0.22 * cos(uTime * 0.09), -0.25 + 0.2 * sin(uTime * 0.07));
 
-  vec3 color = vec3(0.0035, 0.0028, 0.008);
+  vec3 color = vec3(0.0028, 0.0032, 0.008);
   color += uColorA * exp(-dot(p - a, p - a) * 3.0) * 0.028;
   color += uColorB * exp(-dot(p - b, p - b) * 2.5) * 0.016;
   color *= 1.0 - 0.5 * dot(p, p);

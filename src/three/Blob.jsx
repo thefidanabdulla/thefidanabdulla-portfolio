@@ -50,16 +50,12 @@ void main() {
 
 const fragmentShader = /* glsl */ `
 uniform float uTime;
-uniform float uHue;
+uniform vec3 uInner;
+uniform vec3 uRim;
 
 varying vec3 vNormal;
 varying vec3 vViewPosition;
 varying float vDisplacement;
-
-vec3 palette(float t) {
-  return vec3(0.58, 0.42, 0.74)
-    + vec3(0.42, 0.38, 0.28) * cos(6.28318 * (vec3(1.0, 1.0, 0.8) * t + vec3(0.02, 0.3, 0.58)));
-}
 
 void main() {
   vec3 N = normalize(vNormal);
@@ -70,9 +66,10 @@ void main() {
   float diffuse = max(dot(N, L), 0.0);
   float specular = pow(max(dot(reflect(-L, N), V), 0.0), 48.0);
 
-  vec3 sheen = palette(fresnel * 0.55 + vDisplacement * 0.22 + uHue + sin(uTime * 0.25) * 0.04);
-  vec3 color = vec3(0.025, 0.018, 0.06);
-  color += sheen * diffuse * 0.16;
+  float shift = clamp(fresnel * 1.15 + vDisplacement * 0.18 + sin(uTime * 0.25) * 0.05, 0.0, 1.0);
+  vec3 sheen = mix(uInner, uRim, shift);
+  vec3 color = uInner * 0.05;
+  color += sheen * diffuse * 0.22;
   color += sheen * fresnel * 1.5;
   color += specular * 0.5;
 
@@ -80,9 +77,12 @@ void main() {
 }
 `
 
-const AMP = [0.26, 0.2, 0.2, 0.06]
-const FREQ = [1.15, 1.5, 1.2, 1.1]
-const HUE = [0.16, 0.25, 0.2, 0.95]
+// per stage, in STAGE order: a sea-blue core for most of the page, a setting sun at the end
+const AMP = [0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.06]
+const FREQ = [1.5, 1.5, 1.5, 1.2, 1.2, 1.2, 1.1]
+const SEA = [new THREE.Color('#1f4fff'), new THREE.Color('#7df9ff')]
+const SUN = [new THREE.Color('#e63946'), new THREE.Color('#ffd76a')]
+const COLORS = [SEA, SEA, SEA, SEA, SEA, SUN, SUN]
 
 export default function Blob() {
   const mesh = useRef()
@@ -93,7 +93,8 @@ export default function Blob() {
       uTime: { value: 0 },
       uAmp: { value: AMP[0] },
       uFreq: { value: FREQ[0] },
-      uHue: { value: HUE[0] },
+      uInner: { value: new THREE.Color() },
+      uRim: { value: new THREE.Color() },
     }),
     []
   )
@@ -104,14 +105,17 @@ export default function Blob() {
     const lerp = THREE.MathUtils.lerp
 
     mesh.current.position.lerpVectors(layout.pos[a], layout.pos[b], t)
-    mesh.current.scale.setScalar(lerp(layout.scale[a], layout.scale[b], t))
+    const scale = lerp(layout.blob[a], layout.blob[b], t)
+    mesh.current.visible = scale > 0.01
+    mesh.current.scale.setScalar(Math.max(scale, 0.001))
     mesh.current.rotation.set(-pointer.y * 0.25, state.clock.elapsedTime * 0.08 + pointer.x * 0.35, 0)
 
     const agitation = pointer.energy * 0.12 + Math.min(Math.abs(velocity) * 0.004, 0.18)
     uniforms.uTime.value = state.clock.elapsedTime
     uniforms.uAmp.value = lerp(AMP[a], AMP[b], t) + agitation
     uniforms.uFreq.value = lerp(FREQ[a], FREQ[b], t)
-    uniforms.uHue.value = lerp(HUE[a], HUE[b], t)
+    uniforms.uInner.value.lerpColors(COLORS[a][0], COLORS[b][0], t)
+    uniforms.uRim.value.lerpColors(COLORS[a][1], COLORS[b][1], t)
   })
 
   return (

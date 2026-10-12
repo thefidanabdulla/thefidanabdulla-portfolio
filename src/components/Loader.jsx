@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react'
 import { animate, motion } from 'motion/react'
 import { EASE } from '../lib/motion'
 
+const STEPS = ['Compiling', 'Tuning the guitar', 'Sharpening pencils', 'Setting sail']
+
 // Counts to 100, then waits for the scene before the curtain lifts.
 export default function Loader({ sceneReady, onDone }) {
   const [count, setCount] = useState(0)
@@ -36,13 +38,13 @@ export default function Loader({ sceneReady, onDone }) {
         <span>Portfolio</span>
       </div>
       <div className="flex items-end justify-between">
-        <span className="label">Loading experience</span>
+        <span className="label">{STEPS[Math.min(STEPS.length - 1, Math.floor(count / 25))]}</span>
         <span className="font-display text-[clamp(5rem,22vw,18rem)] font-extrabold leading-[0.8] tabular-nums">
           {count}
         </span>
       </div>
       <motion.div
-        className="absolute bottom-0 left-0 h-1 w-full origin-left bg-gradient-to-r from-violet via-pink to-[#ffb38a]"
+        className="absolute bottom-0 left-0 h-1 w-full origin-left bg-gradient-to-r from-straw via-flame to-crimson"
         style={{ scaleX: count / 100 }}
       />
     </motion.div>

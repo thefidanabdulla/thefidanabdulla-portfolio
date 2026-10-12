@@ -18,11 +18,11 @@ function ClientRow({ project, index }) {
         rel="noreferrer"
         className="group relative flex items-center gap-4 overflow-hidden border-t border-white/15 py-6 md:gap-10 md:py-9"
       >
-        <span className="absolute inset-0 origin-bottom scale-y-0 bg-gradient-to-r from-violet via-pink to-[#ffb38a] transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:scale-y-100" />
-        <span className="label relative w-8 transition-colors duration-300 group-hover:text-ink md:pl-4">
+        <span className="absolute inset-0 origin-bottom scale-y-0 bg-gradient-to-r from-straw via-flame to-crimson transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:scale-y-100" />
+        <span className="label relative hidden w-8 transition-colors duration-300 group-hover:text-ink sm:block md:pl-4">
           {pad(index + 1)}
         </span>
-        <span className="relative font-display text-[clamp(2rem,7vw,6rem)] font-extrabold uppercase leading-none tracking-[-0.02em] transition-all duration-500 group-hover:translate-x-3 group-hover:text-ink md:group-hover:translate-x-6">
+        <span className="relative font-display text-[clamp(1.375rem,6.4vw,6rem)] font-extrabold uppercase leading-none tracking-[-0.02em] transition-all duration-500 group-hover:translate-x-3 group-hover:text-ink md:group-hover:translate-x-6">
           {project.name}
         </span>
         <span className="label relative ml-auto hidden transition-colors duration-300 group-hover:text-ink sm:block">
@@ -36,7 +36,7 @@ function ClientRow({ project, index }) {
 
 // One abstract poster per experiment, built from the card's hue.
 function Poster({ index }) {
-  const hue = 250 + index * 26
+  const hue = [44, 18, 356, 214, 30, 200, 8, 48][index % 8]
   const patterns = [
     `repeating-radial-gradient(circle at 50% 120%, hsl(${hue} 90% 70% / 0.55) 0 2px, transparent 2px 22px)`,
     `repeating-conic-gradient(from 0deg at 50% 50%, hsl(${hue} 90% 70% / 0.5) 0 4deg, transparent 4deg 14deg)`,
@@ -80,7 +80,7 @@ function LabCard({ project, index }) {
             href={project.url}
             target="_blank"
             rel="noreferrer"
-            className="flex items-center gap-1.5 rounded-full bg-bone px-4 py-2 text-sm font-semibold text-ink transition-colors duration-300 hover:bg-violet"
+            className="flex items-center gap-1.5 rounded-full bg-paper px-4 py-2 text-sm font-semibold text-ink transition-colors duration-300 hover:bg-straw"
           >
             Live <FiArrowUpRight />
           </a>
@@ -88,7 +88,7 @@ function LabCard({ project, index }) {
             href={project.repo}
             target="_blank"
             rel="noreferrer"
-            className="flex items-center gap-2 rounded-full border border-white/20 px-4 py-2 text-sm font-semibold transition-colors duration-300 hover:border-bone"
+            className="flex items-center gap-2 rounded-full border border-white/20 px-4 py-2 text-sm font-semibold transition-colors duration-300 hover:border-paper"
           >
             <FaGithub /> Code
           </a>
@@ -134,7 +134,7 @@ function Lab() {
           ))}
         </motion.div>
         <div className="mx-5 mt-6 h-px bg-white/15 md:mx-10 md:mt-8">
-          <motion.div className="h-full origin-left bg-bone" style={{ scaleX: scrollYProgress }} />
+          <motion.div className="h-full origin-left bg-paper" style={{ scaleX: scrollYProgress }} />
         </div>
       </div>
     </div>
@@ -146,7 +146,7 @@ function PersonalCard({ project, index }) {
     <Reveal delay={index * 0.12} className="h-full">
       <TiltCard className="card flex min-h-[280px] flex-col p-7 md:min-h-[340px] md:p-9">
         <div className="label flex items-center justify-between">
-          <span className="text-violet">{pad(index + 1)}</span>
+          <span className="text-straw">{pad(index + 1)}</span>
           <span>{project.stack}</span>
         </div>
         <h4 className="mt-auto pt-12 font-display text-3xl font-bold leading-tight md:text-4xl">{project.name}</h4>
@@ -155,7 +155,7 @@ function PersonalCard({ project, index }) {
             href={project.url}
             target="_blank"
             rel="noreferrer"
-            className="flex items-center gap-1.5 rounded-full bg-bone px-4 py-2 text-sm font-semibold text-ink transition-colors duration-300 hover:bg-violet"
+            className="flex items-center gap-1.5 rounded-full bg-paper px-4 py-2 text-sm font-semibold text-ink transition-colors duration-300 hover:bg-straw"
           >
             Live <FiArrowUpRight />
           </a>
@@ -163,7 +163,7 @@ function PersonalCard({ project, index }) {
             href={project.repo}
             target="_blank"
             rel="noreferrer"
-            className="flex items-center gap-2 rounded-full border border-white/20 px-4 py-2 text-sm font-semibold transition-colors duration-300 hover:border-bone"
+            className="flex items-center gap-2 rounded-full border border-white/20 px-4 py-2 text-sm font-semibold transition-colors duration-300 hover:border-paper"
           >
             <FaGithub /> Code
           </a>
@@ -175,16 +175,16 @@ function PersonalCard({ project, index }) {
 
 export default function Work() {
   return (
-    <section id="work" className="relative pt-32 md:pt-48">
+    <section id="work" data-stage className="relative pt-32 md:pt-48">
       <div className="px-5 md:px-10">
-        <SectionLabel index="02">Portfolio</SectionLabel>
+        <SectionLabel index="03">Portfolio</SectionLabel>
 
         <div className="mt-10 grid gap-10 md:mt-14 lg:grid-cols-[1.3fr_1fr] lg:items-end">
           <h2 className="font-display text-[clamp(2.6rem,7vw,6.5rem)] font-extrabold leading-[0.95] tracking-[-0.02em]">
             <MaskLines lines={['Selected', 'work']} lineClassName={['', 'text-gradient']} />
           </h2>
           <Reveal>
-            <p className="max-w-xl leading-relaxed text-bone/70 md:text-lg">{journey}</p>
+            <p className="max-w-xl leading-relaxed text-paper/70 md:text-lg">{journey}</p>
           </Reveal>
         </div>
 
@@ -217,7 +217,7 @@ export default function Work() {
             href={GITHUB}
             target="_blank"
             rel="noreferrer"
-            className="group flex items-center gap-3 font-mono text-xs uppercase tracking-[0.2em] text-bone/70 transition-colors duration-300 hover:text-bone"
+            className="group flex items-center gap-3 font-mono text-xs uppercase tracking-[0.2em] text-paper/70 transition-colors duration-300 hover:text-paper"
           >
             <FaGithub className="text-xl" />
             You can see more on my GitHub

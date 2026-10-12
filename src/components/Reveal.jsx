@@ -46,8 +46,8 @@ export function MaskLines({ lines, className, lineClassName, delay = 0 }) {
 export function SectionLabel({ index, children }) {
   return (
     <Reveal y={20} className="label flex items-center gap-4">
-      <span className="text-violet">{index}</span>
-      <span className="h-px w-12 bg-bone/30" />
+      <span className="text-straw">{index}</span>
+      <span className="h-px w-12 bg-paper/30" />
       <span>{children}</span>
     </Reveal>
   )

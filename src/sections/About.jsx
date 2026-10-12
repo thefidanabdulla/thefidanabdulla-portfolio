@@ -33,7 +33,7 @@ function ScrollText({ text, className }) {
 
 export default function About() {
   return (
-    <section id="about" className="relative pt-32 md:pt-48">
+    <section id="about" data-stage className="relative pt-32 md:pt-48">
       <div className="px-5 md:px-10">
         <SectionLabel index="01">About</SectionLabel>
 
@@ -51,12 +51,12 @@ export default function About() {
           {capabilities.map((item, i) => (
             <Reveal key={item.title} delay={i * 0.12} className="h-full">
               <TiltCard className="card flex flex-col p-7 md:p-9">
-                <span className="label text-violet">0{i + 1}</span>
+                <span className="label text-straw">0{i + 1}</span>
                 <h3 className="mt-10 font-display text-3xl font-bold md:mt-16 md:text-4xl">{item.title}</h3>
-                <p className="mt-4 leading-relaxed text-bone/65">{item.text}</p>
+                <p className="mt-4 leading-relaxed text-paper/65">{item.text}</p>
                 <ul className="mt-auto flex flex-wrap gap-2 pt-8">
                   {item.tags.map((tag) => (
-                    <li key={tag} className="rounded-full border border-white/15 px-3 py-1 font-mono text-[11px] text-bone/80">
+                    <li key={tag} className="rounded-full border border-white/15 px-3 py-1 font-mono text-[11px] text-paper/80">
                       {tag}
                     </li>
                   ))}

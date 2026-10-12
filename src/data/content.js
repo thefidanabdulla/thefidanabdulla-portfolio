@@ -114,3 +114,13 @@ export const personalProjects = [
     repo: 'https://github.com/thefidanabdulla/YoutubeClone',
   },
 ]
+
+// Wordless breaks between the sections: the particles draw one of these while the page scrolls past.
+// The order has to match the stages in three/layout.js.
+export const interludes = {
+  afterAbout: [
+    { word: 'Music', note: 'music: always on' },
+    { word: 'Guitar', note: 'laptop closed, amp on' },
+  ],
+  afterWork: [{ word: 'Sketch', note: 'and a sketchbook, always' }],
+}

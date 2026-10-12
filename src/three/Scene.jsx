@@ -6,6 +6,7 @@ import { store } from '../lib/store'
 import { CAMERA_Z, FOV } from './layout'
 import Backdrop from './Backdrop'
 import Blob from './Blob'
+import Hat from './Hat'
 import Particles from './Particles'
 
 // Eases the scroll stage and drifts the camera with the pointer.
@@ -56,7 +57,11 @@ export default function Scene({ onReady }) {
         >
           <Rig />
           <Backdrop />
+          <ambientLight intensity={0.55} />
+          <directionalLight position={[3, 5, 4]} intensity={1.5} />
+          <directionalLight position={[-4, -1, 2]} intensity={0.35} color="#2f6bff" />
           <Blob />
+          <Hat />
           <Particles />
           <EffectComposer multisampling={mobile ? 2 : 4}>
             <Bloom mipmapBlur intensity={0.85} luminanceThreshold={0.22} luminanceSmoothing={0.5} />

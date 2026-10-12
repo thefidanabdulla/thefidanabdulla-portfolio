@@ -56,7 +56,38 @@ export default function Hero({ ready }) {
   }
 
   return (
-    <section id="home" ref={ref} className="relative flex min-h-svh flex-col justify-end px-5 pb-8 pt-28 md:px-10 md:pb-10">
+    <section id="home" ref={ref} data-stage className="relative flex min-h-svh flex-col justify-end px-5 pb-8 pt-28 md:px-10 md:pb-10">
+      {/* handwritten note pointing at the straw hat */}
+      <motion.div
+        className="pointer-events-none absolute right-[5%] top-[13%] hidden rotate-6 md:block"
+        style={{ opacity }}
+        initial="hidden"
+        animate={ready ? 'shown' : 'hidden'}
+        aria-hidden="true"
+      >
+        <motion.p
+          className="font-hand text-3xl font-bold leading-none text-straw lg:text-4xl"
+          variants={{ hidden: { opacity: 0 }, shown: { opacity: 1, transition: { delay: 1.6, duration: 0.6 } } }}
+        >
+          favourite anime?
+          <br />
+          One Piece, obviously
+        </motion.p>
+        <svg className="-ml-16 mt-1 h-20 w-28 text-straw" viewBox="0 0 112 80" fill="none">
+          <motion.path
+            d="M100 4C96 34 70 56 16 62M16 62l17-13M16 62l19 9"
+            stroke="currentColor"
+            strokeWidth="3"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            variants={{
+              hidden: { pathLength: 0, opacity: 0 },
+              shown: { pathLength: 1, opacity: 1, transition: { delay: 2, duration: 0.9, ease: 'easeInOut' } },
+            }}
+          />
+        </svg>
+      </motion.div>
+
       <motion.div
         className="flex flex-col"
         style={{ opacity, y: lift }}
@@ -66,8 +97,8 @@ export default function Hero({ ready }) {
       >
         <motion.p variants={fade} className="label mb-5 flex items-center gap-3 md:mb-7">
           <span className="relative flex h-2 w-2">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-violet opacity-75" />
-            <span className="relative inline-flex h-2 w-2 rounded-full bg-violet" />
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-straw opacity-75" />
+            <span className="relative inline-flex h-2 w-2 rounded-full bg-straw" />
           </span>
           Frontend Developer
         </motion.p>
@@ -83,9 +114,9 @@ export default function Hero({ ready }) {
         </h1>
 
         <div className="mt-8 flex flex-col gap-8 md:mt-12 md:flex-row md:items-end md:justify-between">
-          <motion.p variants={fade} className="max-w-md text-base leading-relaxed text-bone/70 md:text-lg">
-            I transform ideas into sleek digital solutions — fast interfaces, immersive 3D and seamless user
-            experiences.
+          <motion.p variants={fade} className="max-w-md text-base leading-relaxed text-paper/70 md:text-lg">
+            I transform ideas into sleek digital solutions — and spend the rest of the day with music, an electric
+            guitar, a sketchbook and anime.
           </motion.p>
 
           <motion.div variants={fade} className="flex items-center gap-3">
@@ -93,7 +124,7 @@ export default function Hero({ ready }) {
               <a
                 href="#work"
                 onClick={go('#work')}
-                className="group flex items-center gap-2 rounded-full bg-bone px-6 py-3.5 text-sm font-semibold text-ink transition-colors duration-300 hover:bg-violet"
+                className="group flex items-center gap-2 rounded-full bg-paper px-6 py-3.5 text-sm font-semibold text-ink transition-colors duration-300 hover:bg-straw"
               >
                 See my work
                 <FiArrowDownRight className="text-lg transition-transform duration-300 group-hover:rotate-[-45deg]" />
@@ -103,7 +134,7 @@ export default function Hero({ ready }) {
               <a
                 href="#contact"
                 onClick={go('#contact')}
-                className="block rounded-full border border-white/20 px-6 py-3.5 text-sm font-semibold transition-colors duration-300 hover:border-bone"
+                className="block rounded-full border border-white/20 px-6 py-3.5 text-sm font-semibold transition-colors duration-300 hover:border-paper"
               >
                 Get in touch
               </a>
@@ -112,7 +143,7 @@ export default function Hero({ ready }) {
 
           <motion.div variants={fade} className="label hidden items-center gap-3 lg:flex">
             Scroll
-            <span className="scroll-hint block h-12 w-px bg-bone/70" />
+            <span className="scroll-hint block h-12 w-px bg-paper/70" />
           </motion.div>
         </div>
       </motion.div>

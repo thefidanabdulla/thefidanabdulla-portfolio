@@ -3,10 +3,10 @@
 @tailwind utilities;
 
 html {
-  background: #06050c;
+  background: #07080f;
   color-scheme: dark;
   scrollbar-width: thin;
-  scrollbar-color: #2a2540 #06050c;
+  scrollbar-color: #2a2c40 #07080f;
 }
 
 /* clip (not hidden) so position: sticky keeps working */
@@ -16,18 +16,41 @@ body {
 }
 
 body {
-  @apply bg-ink font-sans text-bone antialiased;
+  @apply bg-ink font-sans text-paper antialiased;
 }
 
 ::selection {
-  background: #b88efc;
-  color: #06050c;
+  background: #f4c95d;
+  color: #07080f;
 }
 
 :focus-visible {
-  outline: 2px solid #b88efc;
+  outline: 2px solid #f4c95d;
   outline-offset: 4px;
   border-radius: 4px;
+}
+
+/* the display face ships one weight, never let the browser fake a bolder one */
+.font-display {
+  font-weight: 400 !important;
+  font-synthesis: none;
+}
+
+/* manga screentone in two corners */
+.halftone {
+  position: fixed;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  opacity: 0.5;
+  background-image: radial-gradient(circle, rgba(246, 239, 224, 0.55) 1.1px, transparent 1.5px);
+  background-size: 11px 11px;
+  -webkit-mask-image:
+    radial-gradient(60vmax 45vmax at 0% 100%, black, transparent 62%),
+    radial-gradient(45vmax 35vmax at 100% 0%, black, transparent 62%);
+  mask-image:
+    radial-gradient(60vmax 45vmax at 0% 100%, black, transparent 62%),
+    radial-gradient(45vmax 35vmax at 100% 0%, black, transparent 62%);
 }
 
 /* film grain over everything */
@@ -44,35 +67,35 @@ body {
 /* shown when WebGL is not available */
 .scene-fallback {
   background:
-    radial-gradient(60% 50% at 75% 30%, rgba(184, 142, 252, 0.28), transparent 70%),
-    radial-gradient(50% 45% at 20% 80%, rgba(255, 122, 198, 0.16), transparent 70%),
-    #06050c;
+    radial-gradient(60% 50% at 75% 30%, rgba(244, 201, 93, 0.24), transparent 70%),
+    radial-gradient(50% 45% at 20% 80%, rgba(47, 107, 255, 0.18), transparent 70%),
+    #07080f;
 }
 
 .text-ghost {
-  color: rgba(239, 234, 255, 0.2);
+  color: rgba(246, 239, 224, 0.2);
 }
 
 .text-gradient {
-  background: linear-gradient(100deg, #b88efc 0%, #ff7ac6 55%, #ffb38a 100%);
+  background: linear-gradient(100deg, #ffd76a 0%, #ff7a3d 55%, #e63946 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 
 .label {
-  @apply font-mono text-[11px] uppercase tracking-[0.28em] text-bone/60;
+  @apply font-mono text-[11px] uppercase tracking-[0.28em] text-paper/60;
 }
 
 .card {
-  @apply rounded-2xl border border-white/10 bg-[#0d0b18]/80;
+  @apply rounded-2xl border border-white/10 bg-[#0c0e1a]/80;
 }
 
 /* pointer-following glare, driven by --gx / --gy from TiltCard */
 .glare {
   background: radial-gradient(
     420px circle at var(--gx, 50%) var(--gy, 50%),
-    rgba(184, 142, 252, 0.2),
+    rgba(244, 201, 93, 0.16),
     transparent 60%
   );
 }

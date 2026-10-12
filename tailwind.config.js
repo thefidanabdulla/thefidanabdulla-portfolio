@@ -7,16 +7,17 @@ export default {
   theme: {
     extend: {
       colors: {
-        ink: "#06050c",
-        bone: "#efeaff",
-        violet: "#b88efc",
-        indigo: "#6877f4",
-        pink: "#ff7ac6",
-        cyan: "#5ee7ff",
+        ink: "#07080f",
+        paper: "#f6efe0",
+        straw: "#f4c95d",
+        flame: "#ff7a3d",
+        crimson: "#e63946",
+        sea: "#2f6bff",
       },
       fontFamily: {
-        display: ["Syne", "system-ui", "sans-serif"],
-        sans: ["Manrope", "system-ui", "sans-serif"],
+        display: ["Dela Gothic One", "system-ui", "sans-serif"],
+        sans: ["Space Grotesk", "system-ui", "sans-serif"],
+        hand: ["Caveat", "cursive"],
         mono: ["JetBrains Mono", "ui-monospace", "monospace"],
       },
     },
