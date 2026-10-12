@@ -39,53 +39,11 @@ export function equalizer() {
   return [x, rand(-1, 1), rand(-0.08, 0.08)]
 }
 
-// Electric guitar, drawn flat and standing upright: double-cutaway body, neck, headstock, strings.
-const GUITAR_SCALE = 0.78
-const GUITAR_SHIFT = -0.55
-
-function bodyDistance(x, y) {
-  const ax = Math.abs(x)
-  const lower = Math.hypot(x, y + 1.2) - 1.0
-  const upper = Math.hypot(x, y + 0.2) - 0.8
-  // two horns reaching up either side of the neck
-  const horn = Math.hypot(ax - 0.66, y - 0.5) - 0.27
-  // the cutaways between horn and neck, and the waist
-  const cutaway = Math.min(Math.hypot(ax - 0.3, y - 0.72) - 0.22, Math.hypot(ax - 1.16, y + 0.68) - 0.38)
-  return Math.max(Math.min(lower, upper, horn), -cutaway)
-}
-
-function guitarPoint() {
-  const pick = Math.random()
-
-  if (pick < 0.1) {
-    // six strings from the bridge to the tuners, tinted so the shader can make them ring
-    const string = Math.floor(Math.random() * 6)
-    return [(string - 2.5) * 0.034, rand(-1.5, 2.75), 0.06, 1]
-  }
-  if (pick < 0.22) return [(Math.random() < 0.6 ? (Math.random() < 0.5 ? -0.12 : 0.12) : rand(-0.12, 0.12)), rand(0.45, 2.7), rand(-0.04, 0.04)]
-  if (pick < 0.29) {
-    // slanted headstock
-    const y = rand(2.7, 3.35)
-    return [rand(-0.17, 0.2 + (y - 2.7) * 0.22), y, rand(-0.04, 0.04)]
-  }
-  if (pick < 0.36) {
-    // two pickups and the bridge
-    const y = [-0.45, -0.95, -1.5][Math.floor(Math.random() * 3)]
-    return [rand(-0.3, 0.3), y + rand(-0.06, 0.06), 0.05]
-  }
-
-  // body: keep every point near the outline, thin out the inside, so the silhouette reads
-  for (;;) {
-    const x = rand(-1.05, 1.05)
-    const y = rand(-2.25, 0.8)
-    const d = bodyDistance(x, y)
-    if (d < 0 && (d > -0.06 || Math.random() < 0.22)) return [x, y, rand(-0.06, 0.06)]
-  }
-}
-
-export function guitar() {
-  const [x, y, z, tint = 0] = guitarPoint()
-  return [x * GUITAR_SCALE, (y + GUITAR_SHIFT) * GUITAR_SCALE, z, tint]
+// Sound waves: rings spreading out behind the guitar. The shader makes them pulse.
+export function soundWaves() {
+  const radius = 1.5 + Math.floor(Math.random() * 6) * 0.48 + rand(-0.03, 0.03)
+  const angle = Math.random() * TAU
+  return [Math.cos(angle) * radius, Math.sin(angle) * radius, rand(-0.9, -0.6)]
 }
 
 // A pencil leaning on the end of the line it has just drawn.

@@ -14,28 +14,27 @@ function buildGeometry(count) {
     shapes.galaxy,
     shapes.knot,
     shapes.equalizer,
-    shapes.guitar,
+    shapes.soundWaves,
     shapes.waveGrid(count),
     shapes.pencil,
     shapes.rings,
   ]
   const targets = builders.map(() => new Float32Array(count * 3))
-  const tint = new Float32Array(count * 2)
+  const tint = new Float32Array(count)
   const random = new Float32Array(count * 4)
 
   for (let i = 0; i < count; i++) {
     builders.forEach((build, stage) => {
       const [x, y, z, marked = 0] = build(i)
       targets[stage].set([x, y, z], i * 3)
-      if (stage === STAGE.GUITAR) tint[i * 2] = marked
-      if (stage === STAGE.DRAWING) tint[i * 2 + 1] = marked
+      if (stage === STAGE.DRAWING) tint[i] = marked
     })
     random.set([Math.random(), Math.random(), Math.random(), Math.random()], i * 4)
   }
 
   const geometry = new THREE.BufferGeometry()
   ATTRIBUTES.forEach((name, stage) => geometry.setAttribute(name, new THREE.BufferAttribute(targets[stage], 3)))
-  geometry.setAttribute('aTint', new THREE.BufferAttribute(tint, 2))
+  geometry.setAttribute('aTint', new THREE.BufferAttribute(tint, 1))
   geometry.setAttribute('aRandom', new THREE.BufferAttribute(random, 4))
   return geometry
 }
@@ -55,8 +54,8 @@ attribute vec3 aGuitar;
 attribute vec3 aWave;
 attribute vec3 aDrawing;
 attribute vec3 aRings;
-// x: guitar strings, y: pencil line
-attribute vec2 aTint;
+// marks the line the pencil has drawn
+attribute float aTint;
 attribute vec4 aRandom;
 
 varying vec3 vColor;
@@ -96,12 +95,11 @@ void main() {
   music.xz = rot(sin(t * 0.4) * 0.3) * music.xz;
   shape[2] = music * uShapeScale;
 
-  // guitar: the strings ring, the whole thing leans and sways
-  vec3 guitar = aGuitar;
-  guitar.x += sin(guitar.y * 26.0 + t * 20.0) * 0.012 * aTint.x;
-  guitar.xz = rot(sin(t * 0.5) * 0.5) * guitar.xz;
-  guitar.xy = rot(-0.6) * guitar.xy;
-  shape[3] = guitar * uShapeScale;
+  // sound waves pulsing outwards behind the guitar
+  vec3 sound = aGuitar;
+  sound.xy *= 1.0 + 0.07 * sin(t * 4.0 - length(sound.xy) * 3.2);
+  sound.xy = rot(t * 0.05) * sound.xy;
+  shape[3] = sound * uShapeScale;
 
   vec3 drawing = aDrawing;
   drawing.xz = rot(sin(t * 0.45) * 0.3) * drawing.xz;
@@ -138,8 +136,7 @@ void main() {
   gl_PointSize = uSize * (0.35 + aRandom.w * 1.1) / -mv.z;
 
   vColor = mix(uColorA, uColorB, aRandom.y) * (0.55 + aRandom.z * 0.75);
-  vColor = mix(vColor, vec3(0.9, 0.8, 0.65), aTint.x * max(0.0, 1.0 - abs(s - 3.0)));
-  vColor = mix(vColor, vec3(1.0, 0.45, 0.2), aTint.y * max(0.0, 1.0 - abs(s - 5.0)));
+  vColor = mix(vColor, vec3(1.0, 0.45, 0.2), aTint * max(0.0, 1.0 - abs(s - 5.0)));
   vAlpha = 0.65 + 0.35 * sin(t * 1.6 + aRandom.x * 60.0);
 }
 `
@@ -162,7 +159,7 @@ export const PALETTE = [
   ['#ffd76a', '#ff7a3d'],
   ['#2f6bff', '#5ee7ff'],
   ['#ff7a3d', '#e63946'],
-  ['#ff5d5d', '#ffb347'],
+  ['#ff7a3d', '#e63946'],
   ['#2f6bff', '#38bdf8'],
   ['#f6efe0', '#ffd76a'],
   ['#ff7a3d', '#ffd76a'],
