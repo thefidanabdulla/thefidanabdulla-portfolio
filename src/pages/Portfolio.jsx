@@ -43,10 +43,10 @@ const Portfolio = () => {
                 className="w-[300px] py-5 border-[2px] font-bold text-lg tracking-wide border-white rounded-sm bg-transparent hover:bg-[#ffffff50] transition-all duration-300 text-white flex flex-col items-center justify-center gap-3">
               <Link
                   target="_blank"
-                  to={"https://ekid.az/"}
+                  to={"https://reyli.store/"}
                   className="border-b border-white"
               >
-                Ekid
+                Reyli
               </Link>
             </div>
             <div
@@ -63,10 +63,10 @@ const Portfolio = () => {
                 className="w-[300px] py-5 border-[2px] font-bold text-lg tracking-wide border-white rounded-sm bg-transparent hover:bg-[#ffffff50] transition-all duration-300 text-white flex flex-col items-center justify-center gap-3">
               <Link
                   target="_blank"
-                  to={"https://bouncefiller.co.kr/"}
+                  to={"https://importcars.az/"}
                   className="border-b border-white"
               >
-                Bounce
+                ImportCars
               </Link>
             </div>
           </div>

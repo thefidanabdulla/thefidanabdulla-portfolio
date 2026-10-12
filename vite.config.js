@@ -4,7 +4,7 @@ import { transformWithEsbuild } from 'vite'
 export default {
     root: 'src/',
     publicDir: '../public/',
-    base: './',
+    base: '/',
     plugins:
     [
         // React support
