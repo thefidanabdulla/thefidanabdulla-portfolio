@@ -1,9 +1,53 @@
-import React from "react";
+import { Suspense, lazy, useCallback, useEffect, useState } from 'react'
+import { AnimatePresence, MotionConfig } from 'motion/react'
+import Cursor from './components/Cursor'
+import Loader from './components/Loader'
+import Navbar from './components/Navbar'
+import { initScroll, store } from './lib/store'
+import About from './sections/About'
+import Contact from './sections/Contact'
+import Hero from './sections/Hero'
+import Work from './sections/Work'
 
-import { MainRouter, router } from "./router";
+// three.js is the heavy part of the bundle, keep it out of the first paint
+const Scene = lazy(() => import('./three/Scene'))
 
 const App = () => {
-  return <MainRouter />;
-};
+  const [sceneReady, setSceneReady] = useState(false)
+  const [ready, setReady] = useState(false)
 
-export default App;
+  useEffect(() => initScroll(), [])
+
+  // no scrolling behind the loader
+  useEffect(() => {
+    if (ready) store.lenis?.start()
+    else store.lenis?.stop()
+  }, [ready])
+
+  const onSceneReady = useCallback(() => setSceneReady(true), [])
+  const onLoaded = useCallback(() => setReady(true), [])
+
+  return (
+    <MotionConfig reducedMotion="user">
+      <Suspense fallback={null}>
+        <Scene onReady={onSceneReady} />
+      </Suspense>
+
+      <Navbar ready={ready} />
+
+      <main className="relative z-10">
+        <Hero ready={ready} />
+        <About />
+        <Work />
+        <Contact />
+      </main>
+
+      <div className="grain" aria-hidden="true" />
+      <Cursor />
+
+      <AnimatePresence>{!ready && <Loader sceneReady={sceneReady} onDone={onLoaded} />}</AnimatePresence>
+    </MotionConfig>
+  )
+}
+
+export default App
