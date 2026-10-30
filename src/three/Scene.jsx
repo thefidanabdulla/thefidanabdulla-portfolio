@@ -6,7 +6,6 @@ import { store } from '../lib/store'
 import { CAMERA_Z, FOV } from './layout'
 import Backdrop from './Backdrop'
 import Blob from './Blob'
-import Guitar from './Guitar'
 import Hat from './Hat'
 import Particles from './Particles'
 
@@ -63,7 +62,6 @@ export default function Scene({ onReady }) {
           <directionalLight position={[-4, -1, 2]} intensity={0.35} color="#2f6bff" />
           <Blob />
           <Hat />
-          <Guitar />
           <Particles />
           <EffectComposer multisampling={mobile ? 2 : 4}>
             <Bloom mipmapBlur intensity={0.85} luminanceThreshold={0.22} luminanceSmoothing={0.5} />

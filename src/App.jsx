@@ -1,10 +1,8 @@
 import { Suspense, lazy, useCallback, useEffect, useState } from 'react'
 import { AnimatePresence, MotionConfig } from 'motion/react'
 import Cursor from './components/Cursor'
-import Interlude from './components/Interlude'
 import Loader from './components/Loader'
 import Navbar from './components/Navbar'
-import { interludes } from './data/content'
 import { initScroll, store } from './lib/store'
 import About from './sections/About'
 import Contact from './sections/Contact'
@@ -40,9 +38,7 @@ const App = () => {
       <main className="relative z-10">
         <Hero ready={ready} />
         <About />
-        <Interlude scenes={interludes.afterAbout} />
         <Work />
-        <Interlude scenes={interludes.afterWork} />
         <Contact />
       </main>
 

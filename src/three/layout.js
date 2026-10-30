@@ -6,7 +6,7 @@ export const CAMERA_Z = 6
 export const FOV = 45
 
 // One entry per [data-stage] element, in page order.
-export const STAGE = { HERO: 0, ABOUT: 1, MUSIC: 2, GUITAR: 3, WORK: 4, DRAWING: 5, CONTACT: 6 }
+export const STAGE = { HERO: 0, ABOUT: 1, WORK: 2, CONTACT: 3 }
 export const LAST = STAGE.CONTACT
 
 // Half height of the visible area at z = 0
@@ -14,39 +14,31 @@ export const HH = Math.tan(THREE.MathUtils.degToRad(FOV / 2)) * CAMERA_Z
 
 // Where each stage's centrepiece sits, in fractions of the half viewport so the
 // composition holds on any aspect ratio. `blob` is the blob's scale there: it steps
-// aside for the straw hat in the hero and for the breaks between sections.
+// aside for the straw hat in the hero.
 const DESKTOP = {
   pos: [
     [0.5, 0.16, 0],
     [0.54, 0, 0],
-    [0, 0.08, 0],
-    [0, 0.05, 0],
     [1.05, 1.0, -3],
-    [0, 0.1, 0],
     [0, -1.32, 0],
   ],
-  blob: [0, 0.42, 0, 0, 0.4, 0, 1.75],
+  blob: [0, 0.42, 0.4, 1.75],
   hat: [0.74, 0.4],
-  guitar: 0.52,
   shape: 1,
-  opacity: [1, 1, 1, 1, 0.75, 1, 1],
+  opacity: [1, 1, 0.75, 1],
 }
 
 const MOBILE = {
   pos: [
     [0, 0.34, 0],
     [0.55, 0.6, -1],
-    [0, 0.12, 0],
-    [0, 0.12, 0],
     [0.9, 1.1, -3],
-    [-0.2, 0.12, 0],
     [0, -0.88, 0],
   ],
-  blob: [0, 0.26, 0, 0, 0.3, 0, 1.2],
+  blob: [0, 0.26, 0.3, 1.2],
   hat: [0.5, 0.3],
-  guitar: 0.36,
   shape: 0.58,
-  opacity: [1, 0.55, 1, 1, 0.6, 1, 1],
+  opacity: [1, 0.55, 0.6, 1],
 }
 
 export function useLayout() {

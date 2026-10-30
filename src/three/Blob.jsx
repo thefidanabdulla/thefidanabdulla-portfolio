@@ -78,11 +78,11 @@ void main() {
 `
 
 // per stage, in STAGE order: a sea-blue core for most of the page, a setting sun at the end
-const AMP = [0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.06]
-const FREQ = [1.5, 1.5, 1.5, 1.2, 1.2, 1.2, 1.1]
+const AMP = [0.2, 0.2, 0.2, 0.06]
+const FREQ = [1.5, 1.5, 1.2, 1.1]
 const SEA = [new THREE.Color('#1f4fff'), new THREE.Color('#7df9ff')]
 const SUN = [new THREE.Color('#e63946'), new THREE.Color('#ffd76a')]
-const COLORS = [SEA, SEA, SEA, SEA, SEA, SUN, SUN]
+const COLORS = [SEA, SEA, SEA, SUN]
 
 export default function Blob() {
   const mesh = useRef()

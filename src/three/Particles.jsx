@@ -6,35 +6,23 @@ import { STAGE, segment, useLayout } from './layout'
 import * as shapes from './shapes'
 
 // attribute name per stage, in STAGE order; the first one is the geometry's position
-const ATTRIBUTES = ['position', 'aKnot', 'aMusic', 'aGuitar', 'aWave', 'aDrawing', 'aRings']
+const ATTRIBUTES = ['position', 'aKnot', 'aWave', 'aRings']
 
 // Every particle gets one target per stage and travels between them as the page scrolls.
 function buildGeometry(count) {
-  const builders = [
-    shapes.galaxy,
-    shapes.knot,
-    shapes.equalizer,
-    shapes.soundWaves,
-    shapes.waveGrid(count),
-    shapes.pencil,
-    shapes.rings,
-  ]
+  const builders = [shapes.galaxy, shapes.knot, shapes.waveGrid(count), shapes.rings]
   const targets = builders.map(() => new Float32Array(count * 3))
-  const tint = new Float32Array(count)
   const random = new Float32Array(count * 4)
 
   for (let i = 0; i < count; i++) {
     builders.forEach((build, stage) => {
-      const [x, y, z, marked = 0] = build(i)
-      targets[stage].set([x, y, z], i * 3)
-      if (stage === STAGE.DRAWING) tint[i] = marked
+      targets[stage].set(build(i), i * 3)
     })
     random.set([Math.random(), Math.random(), Math.random(), Math.random()], i * 4)
   }
 
   const geometry = new THREE.BufferGeometry()
   ATTRIBUTES.forEach((name, stage) => geometry.setAttribute(name, new THREE.BufferAttribute(targets[stage], 3)))
-  geometry.setAttribute('aTint', new THREE.BufferAttribute(tint, 1))
   geometry.setAttribute('aRandom', new THREE.BufferAttribute(random, 4))
   return geometry
 }
@@ -44,18 +32,13 @@ uniform float uTime;
 uniform float uStage;
 uniform float uSize;
 uniform float uShapeScale;
-uniform vec3 uOffset[7];
+uniform vec3 uOffset[4];
 uniform vec3 uColorA;
 uniform vec3 uColorB;
 
 attribute vec3 aKnot;
-attribute vec3 aMusic;
-attribute vec3 aGuitar;
 attribute vec3 aWave;
-attribute vec3 aDrawing;
 attribute vec3 aRings;
-// marks the line the pencil has drawn
-attribute float aTint;
 attribute vec4 aRandom;
 
 varying vec3 vColor;
@@ -73,7 +56,7 @@ float hash(float n) {
 
 void main() {
   float t = uTime;
-  vec3 shape[7];
+  vec3 shape[4];
 
   vec3 galaxy = position;
   galaxy.xz = rot(t * 0.05) * galaxy.xz;
@@ -86,45 +69,25 @@ void main() {
   knot.yz = rot(0.35 + sin(t * 0.3) * 0.15) * knot.yz;
   shape[1] = knot * uShapeScale;
 
-  // equalizer: each bar bounces to its own rhythm, louder in the middle
-  vec3 music = aMusic;
-  float bar = floor((music.x + ${shapes.EQ_HALF_WIDTH.toFixed(1)}) / ${((shapes.EQ_HALF_WIDTH * 2) / shapes.EQ_BARS).toFixed(5)});
-  float level = 0.18 + 0.82 * pow(abs(sin(t * (1.6 + hash(bar) * 2.6) + bar * 1.7)), 1.5);
-  level *= 1.0 - 0.55 * abs(music.x) / ${shapes.EQ_HALF_WIDTH.toFixed(1)};
-  music.y *= level * 1.7;
-  music.xz = rot(sin(t * 0.4) * 0.3) * music.xz;
-  shape[2] = music * uShapeScale;
-
-  // sound waves pulsing outwards behind the guitar
-  vec3 sound = aGuitar;
-  sound.xy *= 1.0 + 0.07 * sin(t * 4.0 - length(sound.xy) * 3.2);
-  sound.xy = rot(t * 0.05) * sound.xy;
-  shape[3] = sound * uShapeScale;
-
-  vec3 drawing = aDrawing;
-  drawing.xz = rot(sin(t * 0.45) * 0.3) * drawing.xz;
-  drawing.y += sin(t * 0.8) * 0.05;
-  shape[5] = drawing * uShapeScale;
-
   vec3 wave = aWave;
   wave.y += sin(wave.x * 0.75 + t * 0.7) * 0.22 + cos(wave.z * 1.1 + t * 0.5) * 0.22
     + sin((wave.x + wave.z) * 0.35 - t * 0.4) * 0.3;
-  shape[4] = wave;
+  shape[2] = wave;
 
   vec3 rings = aRings;
   rings.xz = rot(t * 0.06) * rings.xz;
   rings.yz = rot(0.46) * rings.yz;
   rings.xy = rot(-0.22) * rings.xy;
-  shape[6] = rings * uShapeScale;
+  shape[3] = rings * uShapeScale;
 
   // every particle leaves a little early or late, and drifts off course mid-flight
   float mid = sin(fract(uStage) * 3.14159);
-  float s = clamp(uStage + (aRandom.x - 0.5) * 0.7 * mid, 0.0, 6.0);
+  float s = clamp(uStage + (aRandom.x - 0.5) * 0.7 * mid, 0.0, 3.0);
   float f = fract(s);
   s = floor(s) + f * f * (3.0 - 2.0 * f);
 
   vec3 pos = vec3(0.0);
-  for (int i = 0; i < 7; i++) {
+  for (int i = 0; i < 4; i++) {
     pos += (shape[i] + uOffset[i]) * max(0.0, 1.0 - abs(s - float(i)));
   }
 
@@ -136,7 +99,6 @@ void main() {
   gl_PointSize = uSize * (0.35 + aRandom.w * 1.1) / -mv.z;
 
   vColor = mix(uColorA, uColorB, aRandom.y) * (0.55 + aRandom.z * 0.75);
-  vColor = mix(vColor, vec3(1.0, 0.45, 0.2), aTint * max(0.0, 1.0 - abs(s - 5.0)));
   vAlpha = 0.65 + 0.35 * sin(t * 1.6 + aRandom.x * 60.0);
 }
 `
@@ -158,10 +120,7 @@ void main() {
 export const PALETTE = [
   ['#ffd76a', '#ff7a3d'],
   ['#2f6bff', '#5ee7ff'],
-  ['#ff7a3d', '#e63946'],
-  ['#ff7a3d', '#e63946'],
   ['#2f6bff', '#38bdf8'],
-  ['#f6efe0', '#ffd76a'],
   ['#ff7a3d', '#ffd76a'],
 ].map((pair) => pair.map((hex) => new THREE.Color(hex)))
 

@@ -93,34 +93,3 @@ export const labProjects = [
     repo: 'https://github.com/thefidanabdulla/numb_band_three_js_scroll_effect/',
   },
 ]
-
-export const personalProjects = [
-  {
-    name: 'Hotel Booking App',
-    stack: 'MERN',
-    url: 'https://mern-booking-app-fqdj.onrender.com/',
-    repo: 'https://github.com/thefidanabdulla/mern-booking-app',
-  },
-  {
-    name: 'Admin Dashboard',
-    stack: 'React',
-    url: 'https://react-admin-dashboard-one-olive.vercel.app/',
-    repo: 'https://github.com/thefidanabdulla/React-Admin-Dashboard',
-  },
-  {
-    name: 'YouTube Clone',
-    stack: 'Clone',
-    url: 'https://youtube-clone-ten-ashy-89.vercel.app/',
-    repo: 'https://github.com/thefidanabdulla/YoutubeClone',
-  },
-]
-
-// Wordless breaks between the sections: the particles draw one of these while the page scrolls past.
-// The order has to match the stages in three/layout.js.
-export const interludes = {
-  afterAbout: [
-    { word: 'Music', note: 'music: always on' },
-    { word: 'Guitar', note: 'laptop closed, amp on' },
-  ],
-  afterWork: [{ word: 'Sketch', note: 'and a sketchbook, always' }],
-}

@@ -1,10 +1,7 @@
-import { useLayoutEffect, useRef, useState } from 'react'
-import { motion, useScroll, useTransform } from 'motion/react'
 import { FaGithub } from 'react-icons/fa'
 import { FiArrowUpRight } from 'react-icons/fi'
 import { MaskLines, Reveal, SectionLabel } from '../components/Reveal'
-import TiltCard from '../components/TiltCard'
-import { GITHUB, clientProjects, journey, labProjects, personalProjects } from '../data/content'
+import { GITHUB, clientProjects, journey, labProjects } from '../data/content'
 
 const pad = (n) => String(n).padStart(2, '0')
 const host = (url) => new URL(url).host.replace(/^www\./, '')
@@ -68,108 +65,53 @@ function Poster({ index }) {
 
 function LabCard({ project, index }) {
   return (
-    <article className="card group flex h-[min(64svh,520px)] w-[min(78vw,400px)] shrink-0 flex-col p-4">
-      <div className="min-h-0 flex-1">
-        <Poster index={index} />
-      </div>
-      <div className="px-2 pb-2 pt-5">
-        <span className="label">Three.js / {pad(index + 1)}</span>
-        <h4 className="mt-2 font-display text-2xl font-bold md:text-3xl">{project.name}</h4>
-        <div className="mt-5 flex items-center gap-2">
-          <a
-            href={project.url}
-            target="_blank"
-            rel="noreferrer"
-            className="flex items-center gap-1.5 rounded-full bg-paper px-4 py-2 text-sm font-semibold text-ink transition-colors duration-300 hover:bg-straw"
-          >
-            Live <FiArrowUpRight />
-          </a>
-          <a
-            href={project.repo}
-            target="_blank"
-            rel="noreferrer"
-            className="flex items-center gap-2 rounded-full border border-white/20 px-4 py-2 text-sm font-semibold transition-colors duration-300 hover:border-paper"
-          >
-            <FaGithub /> Code
-          </a>
+    <Reveal delay={(index % 3) * 0.12} className="h-full">
+      <article className="card group flex h-full flex-col p-4">
+        <div className="aspect-[4/3]">
+          <Poster index={index} />
         </div>
-      </div>
-    </article>
+        <div className="px-2 pb-2 pt-5">
+          <span className="label">Three.js / {pad(index + 1)}</span>
+          <h4 className="mt-2 font-display text-2xl font-bold md:text-3xl">{project.name}</h4>
+          <div className="mt-5 flex items-center gap-2">
+            <a
+              href={project.url}
+              target="_blank"
+              rel="noreferrer"
+              className="flex items-center gap-1.5 rounded-full bg-paper px-4 py-2 text-sm font-semibold text-ink transition-colors duration-300 hover:bg-straw"
+            >
+              Live <FiArrowUpRight />
+            </a>
+            <a
+              href={project.repo}
+              target="_blank"
+              rel="noreferrer"
+              className="flex items-center gap-2 rounded-full border border-white/20 px-4 py-2 text-sm font-semibold transition-colors duration-300 hover:border-paper"
+            >
+              <FaGithub /> Code
+            </a>
+          </div>
+        </div>
+      </article>
+    </Reveal>
   )
 }
 
-// Vertical scroll drives a pinned horizontal track.
 function Lab() {
-  const outer = useRef(null)
-  const track = useRef(null)
-  const [distance, setDistance] = useState(0)
-
-  useLayoutEffect(() => {
-    const measure = () => setDistance(Math.max(0, track.current.scrollWidth - window.innerWidth))
-    const observer = new ResizeObserver(measure)
-    observer.observe(track.current)
-    window.addEventListener('resize', measure)
-    measure()
-    return () => {
-      observer.disconnect()
-      window.removeEventListener('resize', measure)
-    }
-  }, [])
-
-  const { scrollYProgress } = useScroll({ target: outer, offset: ['start start', 'end end'] })
-  const x = useTransform(scrollYProgress, (v) => -v * distance)
-
   return (
-    <div ref={outer} className="relative mt-24 md:mt-40" style={{ height: `calc(100svh + ${distance}px)` }}>
-      <div className="sticky top-0 flex h-svh flex-col justify-center overflow-hidden pt-16">
-        <div className="mb-6 flex items-baseline gap-5 px-5 md:mb-8 md:gap-8 md:px-10">
-          <h3 className="font-display text-[clamp(1.75rem,4vw,3.5rem)] font-extrabold leading-none">
-            Three.js <span className="text-gradient">lab</span>
-          </h3>
-          <span className="label hidden sm:inline">{pad(labProjects.length)} experiments</span>
-        </div>
-        <motion.div ref={track} className="flex w-max gap-4 px-5 md:gap-6 md:px-10" style={{ x }}>
-          {labProjects.map((project, i) => (
-            <LabCard key={project.name} project={project} index={i} />
-          ))}
-        </motion.div>
-        <div className="mx-5 mt-6 h-px bg-white/15 md:mx-10 md:mt-8">
-          <motion.div className="h-full origin-left bg-paper" style={{ scaleX: scrollYProgress }} />
-        </div>
+    <div className="mt-24 px-5 md:mt-40 md:px-10">
+      <Reveal y={20} className="mb-6 flex items-baseline gap-5 md:mb-8 md:gap-8">
+        <h3 className="font-display text-[clamp(1.75rem,4vw,3.5rem)] font-extrabold leading-none">
+          Three.js <span className="text-gradient">lab</span>
+        </h3>
+        <span className="label hidden sm:inline">{pad(labProjects.length)} experiments</span>
+      </Reveal>
+      <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {labProjects.map((project, i) => (
+          <LabCard key={project.name} project={project} index={i} />
+        ))}
       </div>
     </div>
-  )
-}
-
-function PersonalCard({ project, index }) {
-  return (
-    <Reveal delay={index * 0.12} className="h-full">
-      <TiltCard className="card flex min-h-[280px] flex-col p-7 md:min-h-[340px] md:p-9">
-        <div className="label flex items-center justify-between">
-          <span className="text-straw">{pad(index + 1)}</span>
-          <span>{project.stack}</span>
-        </div>
-        <h4 className="mt-auto pt-12 font-display text-3xl font-bold leading-tight md:text-4xl">{project.name}</h4>
-        <div className="mt-6 flex items-center gap-2">
-          <a
-            href={project.url}
-            target="_blank"
-            rel="noreferrer"
-            className="flex items-center gap-1.5 rounded-full bg-paper px-4 py-2 text-sm font-semibold text-ink transition-colors duration-300 hover:bg-straw"
-          >
-            Live <FiArrowUpRight />
-          </a>
-          <a
-            href={project.repo}
-            target="_blank"
-            rel="noreferrer"
-            className="flex items-center gap-2 rounded-full border border-white/20 px-4 py-2 text-sm font-semibold transition-colors duration-300 hover:border-paper"
-          >
-            <FaGithub /> Code
-          </a>
-        </div>
-      </TiltCard>
-    </Reveal>
   )
 }
 
@@ -202,17 +144,8 @@ export default function Work() {
 
       <Lab />
 
-      <div className="px-5 pt-24 md:px-10 md:pt-40">
-        <Reveal y={20}>
-          <h3 className="label mb-6">My projects</h3>
-        </Reveal>
-        <div className="grid gap-5 md:grid-cols-3">
-          {personalProjects.map((project, i) => (
-            <PersonalCard key={project.name} project={project} index={i} />
-          ))}
-        </div>
-
-        <Reveal className="mt-12 flex justify-center md:mt-16">
+      <div className="px-5 pt-16 md:px-10 md:pt-20">
+        <Reveal className="flex justify-center">
           <a
             href={GITHUB}
             target="_blank"
